@@ -10,7 +10,7 @@ public interface BikeService {
 
     br.ueg.progweb1.crud_bike.model.Bike update(br.ueg.progweb1.crud_bike.model.Bike dado);
 
-    List<br.ueg.progweb1.crud_bike.model.Bike> listOnlyMTB();
+    List<br.ueg.progweb1.crud_bike.model.Bike> listOnlyMountainBikes();
 
     br.ueg.progweb1.crud_bike.model.Bike getById(Long id);
 

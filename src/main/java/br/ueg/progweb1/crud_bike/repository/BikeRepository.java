@@ -13,6 +13,6 @@ public interface BikeRepository
 
     Optional<br.ueg.progweb1.crud_bike.model.Bike> findBySerialNumber(String serialNumber);
 
-    @Query("select s from Bike s where s.createdDate < CURRENT_DATE")
-    Optional<List<br.ueg.progweb1.crud_bike.model.Bike>> findYesterdayRegisters();
+    @Query("select s from Bike s where s.isMTB = TRUE")
+    Optional<List<br.ueg.progweb1.crud_bike.model.Bike>> findOnlyMountainBikes();
 }

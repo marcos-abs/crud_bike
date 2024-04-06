@@ -79,7 +79,7 @@ public class BikeController {
     }
 
     @PutMapping(path= "/{id}")
-    @Operation(description = "End point para inclusão de modelo de bike")
+    @Operation(description = "End point para alteração de modelo de bike")
     public ResponseEntity<Object> update(
             @RequestBody br.ueg.progweb1.crud_bike.model.dtos.UpdateBikeDTO dto,
             @PathVariable("id") Long id){
@@ -102,10 +102,10 @@ public class BikeController {
         return ResponseEntity.ok(bikeSaved);
     }
 
-    @GetMapping(path = "/yesterday-registers") //todo: substituir
-    @Operation(description = "lista todos os modelos de bike que são mtb")
-    public ResponseEntity<List<br.ueg.progweb1.crud_bike.model.Bike>> listYesterdayRegisters(){
-        return ResponseEntity.of(Optional.ofNullable(service.listOnlyMTB()));
+    @GetMapping(path = "/mtb-only")
+    @Operation(description = "lista todos os modelos de bike que são mountain bike (somente)")
+    public ResponseEntity<List<br.ueg.progweb1.crud_bike.model.Bike>> listOnlyMountainBikes(){
+        return ResponseEntity.of(Optional.ofNullable(service.listOnlyMountainBikes()));
     }
 
     @GetMapping

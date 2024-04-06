@@ -49,9 +49,8 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         return repository.save(dataDB);
     }
 
-    @Override
-    public List<br.ueg.progweb1.crud_bike.model.Bike> listOnlyMTB() {
-        Optional<List<br.ueg.progweb1.crud_bike.model.Bike>> listagem = repository.findYesterdayRegisters();
+    public List<br.ueg.progweb1.crud_bike.model.Bike> listOnlyMountainBikes() {
+        Optional<List<br.ueg.progweb1.crud_bike.model.Bike>> listagem = repository.findOnlyMountainBikes();
         if(listagem.isPresent()){
             return listagem.get();
         }

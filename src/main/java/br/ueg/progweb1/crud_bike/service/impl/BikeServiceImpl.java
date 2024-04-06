@@ -70,9 +70,9 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
 
     @Override
     public br.ueg.progweb1.crud_bike.model.Bike deleteById(Long id){
-        br.ueg.progweb1.crud_bike.model.Bike studentToRemove = this.validateBikeIdExists(id);
-        this.repository.delete(studentToRemove);
-        return studentToRemove;
+        br.ueg.progweb1.crud_bike.model.Bike bikeToRemove = this.validateBikeIdExists(id);
+        this.repository.delete(bikeToRemove);
+        return bikeToRemove;
     }
 
     private br.ueg.progweb1.crud_bike.model.Bike validateBikeIdExists(Long id) {

@@ -1,4 +1,14 @@
-## Olá, meu nome é Marcos Antônio!
+# Welcome
+
+## I'm Marcos Antônio Barbosa de Souza
+
+:computer: I'm FullStack Developer!
+
+:house_with_garden: I’m from Brazil.
+
+:books: I’m currently learning everything.
+
+:outbox_tray: 2018 Goals: create a new project and find a new job.
 
 ### ⚙️ GitHub Analytics
 
@@ -57,19 +67,6 @@
     alt="Número de visitantes no perfil"
   />
 </p>
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Welcome
-
-## I'm Marcos Antônio Barbosa de Souza
-
-:computer: I'm FullStack Developer!
-
-:house_with_garden: I’m from Brazil.
-
-:books: I’m currently learning everything.
-
-:outbox_tray: 2018 Goals: create a new project and find a new job.
 
 ## About me
 

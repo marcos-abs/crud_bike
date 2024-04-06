@@ -5,7 +5,6 @@ import br.ueg.progweb1.crud_bike.exceptions.BusinessLogicException;
 import br.ueg.progweb1.crud_bike.exceptions.DataException;
 import br.ueg.progweb1.crud_bike.exceptions.MandatoryException;
 import br.ueg.progweb1.crud_bike.repository.BikeRepository;
-import br.ueg.progweb1.crud_bike.repository.StudentRepository;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,7 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
 
     @Override
     public br.ueg.progweb1.crud_bike.model.Bike update(br.ueg.progweb1.crud_bike.model.Bike dataToUpdate){
-        var dataDB = validateStudentIdExists(dataToUpdate.getId());
+        var dataDB = validateBikeIdExists(dataToUpdate.getId());
         validateMandatoryFields(dataToUpdate);
         validateBusinessLogic(dataToUpdate);
         validateBusinessLogicForUpdate(dataToUpdate);
@@ -51,7 +50,7 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     }
 
     @Override
-    public List<br.ueg.progweb1.crud_bike.model.Bike> listYesterdayRegisters() {
+    public List<br.ueg.progweb1.crud_bike.model.Bike> listOnlyMTB() {
         Optional<List<br.ueg.progweb1.crud_bike.model.Bike>> listagem = repository.findYesterdayRegisters();
         if(listagem.isPresent()){
             return listagem.get();
@@ -66,17 +65,17 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
 
     @Override
     public br.ueg.progweb1.crud_bike.model.Bike getById(Long id){
-        return this.validateStudentIdExists(id);
+        return this.validateBikeIdExists(id);
     }
 
     @Override
     public br.ueg.progweb1.crud_bike.model.Bike deleteById(Long id){
-        br.ueg.progweb1.crud_bike.model.Bike studentToRemove = this.validateStudentIdExists(id);
+        br.ueg.progweb1.crud_bike.model.Bike studentToRemove = this.validateBikeIdExists(id);
         this.repository.delete(studentToRemove);
         return studentToRemove;
     }
 
-    private br.ueg.progweb1.crud_bike.model.Bike validateStudentIdExists(Long id) {
+    private br.ueg.progweb1.crud_bike.model.Bike validateBikeIdExists(Long id) {
         boolean valid = true;
         br.ueg.progweb1.crud_bike.model.Bike dadoDB = null;
 
@@ -90,7 +89,7 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         }
 
         if(Boolean.FALSE.equals(valid)){
-            throw new DataException("Estudante não encontrado");
+            throw new DataException("Modelo não encontrado");
         }
 
         return dadoDB;
@@ -105,10 +104,10 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     }
 
     private void validateBusinessLogicForInsert(br.ueg.progweb1.crud_bike.model.Bike dado) {
-        if(Strings.isEmpty(dado.getRegisterNumber())){
+        if(Strings.isEmpty(dado.getSerialNumber())){
             throw new BusinessLogicException(BusinessLogicError.MANDATORY_FIELD_NOT_FOUND);
         }
-        Optional<br.ueg.progweb1.crud_bike.model.Bike> registerNumber = repository.findByRegisterNumber(dado.getRegisterNumber());
+        Optional<br.ueg.progweb1.crud_bike.model.Bike> registerNumber = repository.findBySerialNumber(dado.getSerialNumber());
         if(registerNumber.isPresent()){
             throw new BusinessLogicException(BusinessLogicError.ALREADY_EXISTS);
         }
@@ -125,7 +124,7 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     }
 
     private void validateMandatoryFields(br.ueg.progweb1.crud_bike.model.Bike dado) {
-        if(Strings.isEmpty(dado.getName())){
+        if(Strings.isEmpty(dado.getDescription())){
             throw new MandatoryException("Campos obrigatórios não preenchidos");
         }
     }

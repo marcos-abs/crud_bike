@@ -24,7 +24,7 @@ public class AppStartupRunner implements ApplicationRunner {
     private static final Logger LOG = LoggerFactory.getLogger(AppStartupRunner.class);
 
     @Autowired
-    private StudentRepository studentRepository;
+    private BikeRepository bikeRepository;
 
     public void initDados() {
 
@@ -34,11 +34,11 @@ public class AppStartupRunner implements ApplicationRunner {
         }
         br.ueg.progweb1.crud_bike.model.Bike bike = br.ueg.progweb1.crud_bike.model.Bike.builder()
                 .serialNumber("1234567890AB")
-                .name("João das Couves")
-                .course("Ciência da Computação")
+                .description("Quadro 18 polegadas, aro 26, 21 marchas, freio a disco, suspensão dianteira")
+                .isMTB(true)
                 .createdDate(LocalDate.now().minusDays(1))
                 .build();
-        this.studentRepository.save(bike);
+        this.bikeRepository.save(bike);
         LOG.info("Finalizando a execução do método initDados()");
     }
 

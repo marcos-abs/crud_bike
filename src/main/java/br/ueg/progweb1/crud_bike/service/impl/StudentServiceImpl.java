@@ -4,7 +4,6 @@ import br.ueg.progweb1.aula01.exceptions.BusinessLogicError;
 import br.ueg.progweb1.aula01.exceptions.BusinessLogicException;
 import br.ueg.progweb1.aula01.exceptions.DataException;
 import br.ueg.progweb1.aula01.exceptions.MandatoryException;
-import br.ueg.progweb1.aula01.model.Student;
 import br.ueg.progweb1.aula01.repository.StudentRepository;
 import br.ueg.progweb1.aula01.service.StudentService;
 import org.apache.logging.log4j.util.Strings;
@@ -22,13 +21,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentRepository repository;
-    public List<Student> listAll(){
+    public List<br.ueg.progweb1.aula01.model.Bike> listAll(){
 
         return repository.findAll();
     }
 
     @Override
-    public Student create(Student dado) {
+    public br.ueg.progweb1.aula01.model.Bike create(br.ueg.progweb1.aula01.model.Bike dado) {
         prepareToCreate(dado);
         validateMandatoryFields(dado);
         validateBusinessLogic(dado);
@@ -36,13 +35,13 @@ public class StudentServiceImpl implements StudentService {
         return repository.save(dado);
     }
 
-    private void prepareToCreate(Student dado) {
+    private void prepareToCreate(br.ueg.progweb1.aula01.model.Bike dado) {
         dado.setId(null);
         dado.setCreatedDate(LocalDate.now());
     }
 
     @Override
-    public Student update(Student dataToUpdate){
+    public br.ueg.progweb1.aula01.model.Bike update(br.ueg.progweb1.aula01.model.Bike dataToUpdate){
         var dataDB = validateStudentIdExists(dataToUpdate.getId());
         validateMandatoryFields(dataToUpdate);
         validateBusinessLogic(dataToUpdate);
@@ -52,34 +51,34 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> listYesterdayRegisters() {
-        Optional<List<Student>> listagem = repository.findYesterdayRegisters();
+    public List<br.ueg.progweb1.aula01.model.Bike> listYesterdayRegisters() {
+        Optional<List<br.ueg.progweb1.aula01.model.Bike>> listagem = repository.findYesterdayRegisters();
         if(listagem.isPresent()){
             return listagem.get();
         }
         return new ArrayList<>();
     }
 
-    private void updatedDataDBFromUpdate(Student dataToUpdate, Student dataDB) {
+    private void updatedDataDBFromUpdate(br.ueg.progweb1.aula01.model.Bike dataToUpdate, br.ueg.progweb1.aula01.model.Bike dataDB) {
         dataDB.setName(dataToUpdate.getName());
         dataDB.setCourse(dataToUpdate.getCourse());
     }
 
     @Override
-    public Student getById(Long id){
+    public br.ueg.progweb1.aula01.model.Bike getById(Long id){
         return this.validateStudentIdExists(id);
     }
 
     @Override
-    public Student deleteById(Long id){
-        Student studentToRemove = this.validateStudentIdExists(id);
+    public br.ueg.progweb1.aula01.model.Bike deleteById(Long id){
+        br.ueg.progweb1.aula01.model.Bike studentToRemove = this.validateStudentIdExists(id);
         this.repository.delete(studentToRemove);
         return studentToRemove;
     }
 
-    private Student validateStudentIdExists(Long id) {
+    private br.ueg.progweb1.aula01.model.Bike validateStudentIdExists(Long id) {
         boolean valid = true;
-        Student dadoDB = null;
+        br.ueg.progweb1.aula01.model.Bike dadoDB = null;
 
         if(Objects.nonNull(id)) {
             dadoDB = this.internalGetById(id);
@@ -97,35 +96,35 @@ public class StudentServiceImpl implements StudentService {
         return dadoDB;
     }
 
-    private Student internalGetById(Long id){
-        Optional<Student> byId = repository.findById(id);
+    private br.ueg.progweb1.aula01.model.Bike internalGetById(Long id){
+        Optional<br.ueg.progweb1.aula01.model.Bike> byId = repository.findById(id);
         if(byId.isPresent()){
             return byId.get();
         }
         return null;
     }
 
-    private void validateBusinessLogicForInsert(Student dado) {
+    private void validateBusinessLogicForInsert(br.ueg.progweb1.aula01.model.Bike dado) {
         if(Strings.isEmpty(dado.getRegisterNumber())){
             throw new BusinessLogicException(BusinessLogicError.MANDATORY_FIELD_NOT_FOUND);
         }
-        Optional<Student> registerNumber = repository.findByRegisterNumber(dado.getRegisterNumber());
+        Optional<br.ueg.progweb1.aula01.model.Bike> registerNumber = repository.findByRegisterNumber(dado.getRegisterNumber());
         if(registerNumber.isPresent()){
             throw new BusinessLogicException(BusinessLogicError.ALREADY_EXISTS);
         }
     }
 
-    private void validateBusinessLogicForUpdate(Student dado) {
+    private void validateBusinessLogicForUpdate(br.ueg.progweb1.aula01.model.Bike dado) {
         if(dado.getId() <= 0L ){
             throw new BusinessLogicException(BusinessLogicError.INVALID_KEY);
         }
     }
 
-    private void validateBusinessLogic(Student dado) {
+    private void validateBusinessLogic(br.ueg.progweb1.aula01.model.Bike dado) {
 
     }
 
-    private void validateMandatoryFields(Student dado) {
+    private void validateMandatoryFields(br.ueg.progweb1.aula01.model.Bike dado) {
         if(Strings.isEmpty(dado.getName())){
             throw new MandatoryException("Campos obrigatórios não preenchidos");
         }

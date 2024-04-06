@@ -1,20 +1,18 @@
 package br.ueg.progweb1.aula01.service;
 
-import br.ueg.progweb1.aula01.model.Student;
-
 import java.util.List;
 
 public interface StudentService {
 
-    List<Student> listAll();
+    List<br.ueg.progweb1.aula01.model.Bike> listAll();
 
-    Student create(Student dado);
+    br.ueg.progweb1.aula01.model.Bike create(br.ueg.progweb1.aula01.model.Bike dado);
 
-    Student update(Student dado);
+    br.ueg.progweb1.aula01.model.Bike update(br.ueg.progweb1.aula01.model.Bike dado);
 
-    List<Student> listYesterdayRegisters();
+    List<br.ueg.progweb1.aula01.model.Bike> listYesterdayRegisters();
 
-    Student getById(Long id);
+    br.ueg.progweb1.aula01.model.Bike getById(Long id);
 
-    Student deleteById(Long id);
+    br.ueg.progweb1.aula01.model.Bike deleteById(Long id);
 }

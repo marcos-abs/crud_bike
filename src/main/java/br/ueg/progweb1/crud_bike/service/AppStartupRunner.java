@@ -1,6 +1,5 @@
 package br.ueg.progweb1.aula01.service;
 
-import br.ueg.progweb1.aula01.model.Student;
 import br.ueg.progweb1.aula01.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +32,7 @@ public class AppStartupRunner implements ApplicationRunner {
         if(!ddlAuto.equals(CREATE) && !ddlAuto.equals(CREATE_DROP)) {
             return;
         }
-        Student student = Student.builder()
+        br.ueg.progweb1.aula01.model.Bike student = br.ueg.progweb1.aula01.model.Bike.builder()
                 .registerNumber("230322001")
                 .name("João das Couves")
                 .course("Ciência da Computação")

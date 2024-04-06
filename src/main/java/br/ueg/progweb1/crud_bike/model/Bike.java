@@ -14,31 +14,31 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ALUNO")
-public  class Student {
+@Table(name = "BIKE")
+public  class Bike {
 
     @Id
     @SequenceGenerator(
-            name="student_sequence",
-            sequenceName = "student_sequence_bd",
+            name="bike_sequence",
+            sequenceName = "bike_sequence_bd",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = SEQUENCE,
-            generator = "student_sequence"
+            generator = "bike_sequence"
     )
     @Column(name = "chave", nullable = false)
     private Long id;
 
-    @Column(name = "matricula",  nullable = false, length = 10)
-    private String registerNumber;
+    @Column(name = "numero_serie",  nullable = false, length = 12)
+    private String serialNumber;
 
-    @Column(name = "nome_aluno",  nullable = false, length = 150)
-    private String name;
+    @Column(name = "descricao",  nullable = false, length = 150)
+    private String description;
 
-    @Column(name = "curso")
-    private String course;
+    @Column(name = "eh_mountainbike")
+    private Boolean isMTB;
 
-    @Column(name = "data_criacao", nullable = false)
+    @Column(name = "date_creation", nullable = false)
     private LocalDate createdDate;
 }

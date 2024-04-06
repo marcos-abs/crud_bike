@@ -30,8 +30,8 @@ public  class Bike {
     @Column(name = "chave", nullable = false)
     private Long id;
 
-    @Column(name = "numero_serie",  nullable = false, length = 12)
-    private String serialNumber;
+    @Column(name = "codigo_modelo",  nullable = false, length = 12)
+    private String partNumber;
 
     @Column(name = "descricao",  nullable = false, length = 150)
     private String description;

@@ -103,10 +103,10 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     }
 
     private void validateBusinessLogicForInsert(br.ueg.progweb1.crud_bike.model.Bike dado) {
-        if(Strings.isEmpty(dado.getSerialNumber())){
+        if(Strings.isEmpty(dado.getPartNumber())){
             throw new BusinessLogicException(BusinessLogicError.MANDATORY_FIELD_NOT_FOUND);
         }
-        Optional<br.ueg.progweb1.crud_bike.model.Bike> registerNumber = repository.findBySerialNumber(dado.getSerialNumber());
+        Optional<br.ueg.progweb1.crud_bike.model.Bike> registerNumber = repository.findByPartNumber(dado.getPartNumber());
         if(registerNumber.isPresent()){
             throw new BusinessLogicException(BusinessLogicError.ALREADY_EXISTS);
         }

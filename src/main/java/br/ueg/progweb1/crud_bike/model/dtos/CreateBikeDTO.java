@@ -11,7 +11,7 @@ import lombok.*;
 public class CreateBikeDTO {
 
     @Schema(description = "Número de série da bike", example = "1234567890AB")
-    private String serialNumber;
+    private String partNumber;
 
     @Schema(description = "Descrição do modelo da bike", example = "Quadro 18 polegadas, aro 26, 21 marchas, cor preta")
     private String description;

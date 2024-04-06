@@ -33,7 +33,7 @@ public class AppStartupRunner implements ApplicationRunner {
             return;
         }
         br.ueg.progweb1.crud_bike.model.Bike bike = br.ueg.progweb1.crud_bike.model.Bike.builder()
-                .serialNumber("1234567890AB")
+                .partNumber("1234567890AB")
                 .description("Quadro 18 polegadas, aro 26, 21 marchas, freio a disco, suspensão dianteira")
                 .isMTB(true)
                 .createdDate(LocalDate.now().minusDays(1))

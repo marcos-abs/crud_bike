@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface BikeRepository
         extends JpaRepository<br.ueg.progweb1.crud_bike.model.Bike, Long> {
 
-    Optional<br.ueg.progweb1.crud_bike.model.Bike> findBySerialNumber(String serialNumber);
+    Optional<br.ueg.progweb1.crud_bike.model.Bike> findByPartNumber(String partNumber);
 
     @Query("select s from Bike s where s.isMTB = TRUE")
     Optional<List<br.ueg.progweb1.crud_bike.model.Bike>> findOnlyMountainBikes();

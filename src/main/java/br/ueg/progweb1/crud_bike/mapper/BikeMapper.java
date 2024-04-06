@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class BikeMapper {
     public br.ueg.progweb1.crud_bike.model.Bike toModel(br.ueg.progweb1.crud_bike.model.dtos.CreateBikeDTO dto) {
         br.ueg.progweb1.crud_bike.model.Bike s = new br.ueg.progweb1.crud_bike.model.Bike();
-        s.setSerialNumber(dto.getSerialNumber());
+        s.setPartNumber(dto.getPartNumber());
         s.setDescription(dto.getDescription());
         s.setIsMTB(dto.getIsMTB());
         return s;

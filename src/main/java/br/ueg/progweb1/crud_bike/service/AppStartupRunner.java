@@ -1,6 +1,6 @@
-package br.ueg.progweb1.aula01.service;
+package br.ueg.progweb1.crud_bike.service;
 
-import br.ueg.progweb1.aula01.repository.StudentRepository;
+import br.ueg.progweb1.crud_bike.repository.BikeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +32,13 @@ public class AppStartupRunner implements ApplicationRunner {
         if(!ddlAuto.equals(CREATE) && !ddlAuto.equals(CREATE_DROP)) {
             return;
         }
-        br.ueg.progweb1.aula01.model.Bike student = br.ueg.progweb1.aula01.model.Bike.builder()
-                .registerNumber("230322001")
+        br.ueg.progweb1.crud_bike.model.Bike bike = br.ueg.progweb1.crud_bike.model.Bike.builder()
+                .serialNumber("1234567890AB")
                 .name("João das Couves")
                 .course("Ciência da Computação")
                 .createdDate(LocalDate.now().minusDays(1))
                 .build();
-        this.studentRepository.save(student);
+        this.studentRepository.save(bike);
         LOG.info("Finalizando a execução do método initDados()");
     }
 

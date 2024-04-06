@@ -4,7 +4,6 @@ import br.ueg.progweb1.aula01.exceptions.BusinessLogicException;
 import br.ueg.progweb1.aula01.exceptions.DataException;
 import br.ueg.progweb1.aula01.exceptions.MandatoryException;
 import br.ueg.progweb1.aula01.mapper.StudentMapper;
-import br.ueg.progweb1.aula01.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +19,7 @@ import java.util.Optional;
 public class StudentController {
 
     @Autowired
-    private StudentService service;
+    private br.ueg.progweb1.aula01.service.BikeService service;
 
     @Autowired
     private StudentMapper mapper;

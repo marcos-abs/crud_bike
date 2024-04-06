@@ -1,4 +1,4 @@
-package br.ueg.progweb1.aula01.model.dtos;
+package br.ueg.progweb1.crud_bike.model.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;

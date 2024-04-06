@@ -1,4 +1,4 @@
-package br.ueg.progweb1.aula01.exceptions;
+package br.ueg.progweb1.crud_bike.exceptions;
 
 import lombok.Getter;
 

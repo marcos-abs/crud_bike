@@ -29,6 +29,8 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     public br.ueg.progweb1.crud_bike.model.Bike create(br.ueg.progweb1.crud_bike.model.Bike dado) {
         prepareToCreate(dado);
         validateMandatoryFields(dado);
+        validateMountainBike(dado);
+        validateSpeedBike(dado);
         validateBusinessLogic(dado);
         validateBusinessLogicForInsert(dado);
         return repository.save(dado);
@@ -43,6 +45,8 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     public br.ueg.progweb1.crud_bike.model.Bike update(br.ueg.progweb1.crud_bike.model.Bike dataToUpdate){
         var dataDB = validateBikeIdExists(dataToUpdate.getId());
         validateMandatoryFields(dataToUpdate);
+        validateMountainBike(dataToUpdate);
+        validateSpeedBike(dataToUpdate);
         validateBusinessLogic(dataToUpdate);
         validateBusinessLogicForUpdate(dataToUpdate);
         updatedDataDBFromUpdate(dataToUpdate, dataDB);
@@ -58,7 +62,10 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     }
 
     private void updatedDataDBFromUpdate(br.ueg.progweb1.crud_bike.model.Bike dataToUpdate, br.ueg.progweb1.crud_bike.model.Bike dataDB) {
+        dataDB.setPartNumber(dataToUpdate.getPartNumber());
         dataDB.setDescription(dataToUpdate.getDescription());
+        dataDB.setSizeWheel(dataToUpdate.getSizeWheel());
+        dataDB.setSizeFrame(dataToUpdate.getSizeFrame());
         dataDB.setIsMTB(dataToUpdate.getIsMTB());
     }
 
@@ -109,6 +116,28 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         Optional<br.ueg.progweb1.crud_bike.model.Bike> registerNumber = repository.findByPartNumber(dado.getPartNumber());
         if(registerNumber.isPresent()){
             throw new BusinessLogicException(BusinessLogicError.ALREADY_EXISTS);
+        }
+    }
+
+    private void validateMountainBike(br.ueg.progweb1.crud_bike.model.Bike dado) {
+        if(dado.getIsMTB() == true){
+            if(dado.getSizeFrame() < 14.5d || dado.getSizeFrame() > 21.0d){
+                throw new BusinessLogicException(BusinessLogicError.INCORRECT_VALUES);
+            }
+            if(dado.getSizeWheel() < 26.0d || dado.getSizeWheel() > 29.0d){
+                throw new BusinessLogicException(BusinessLogicError.INCORRECT_VALUES);
+            }
+        }
+    }
+
+    private void validateSpeedBike(br.ueg.progweb1.crud_bike.model.Bike dado) {
+        if(dado.getIsMTB() == false){
+            if(dado.getSizeFrame() < 46.0d || dado.getSizeFrame() > 59.0d){
+                throw new BusinessLogicException(BusinessLogicError.INCORRECT_VALUES);
+            }
+            if(dado.getSizeWheel() != 29.0d || dado.getSizeWheel() > 700.0d){
+                throw new BusinessLogicException(BusinessLogicError.INCORRECT_VALUES);
+            }
         }
     }
 

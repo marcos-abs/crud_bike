@@ -32,9 +32,21 @@ public class AppStartupRunner implements ApplicationRunner {
         if(!ddlAuto.equals(CREATE) && !ddlAuto.equals(CREATE_DROP)) {
             return;
         }
-        br.ueg.progweb1.crud_bike.model.Bike bike = br.ueg.progweb1.crud_bike.model.Bike.builder()
+        br.ueg.progweb1.crud_bike.model.Bike bike = null;
+        bike = br.ueg.progweb1.crud_bike.model.Bike.builder()
                 .partNumber("1234567890AB")
-                .description("Quadro 18 polegadas, aro 26, 21 marchas, freio a disco, suspensão dianteira")
+                .description("Bicicleta MTB, Marca Giant, 29 marchas, cor preta, freio a disco, suspensão dianteira")
+                .sizeFrame(17.5)
+                .sizeWheel(27.5)
+                .isMTB(true)
+                .createdDate(LocalDate.now().minusDays(1))
+                .build();
+        this.bikeRepository.save(bike);
+        bike = br.ueg.progweb1.crud_bike.model.Bike.builder()
+                .partNumber("9876543210ZY")
+                .description("Bicicleta Urbana, Marca Caloi, 18 marchas, cor branca, freio v-brake, sem suspensão")
+                .sizeFrame(18.0)
+                .sizeWheel(29.0)
                 .isMTB(true)
                 .createdDate(LocalDate.now().minusDays(1))
                 .build();

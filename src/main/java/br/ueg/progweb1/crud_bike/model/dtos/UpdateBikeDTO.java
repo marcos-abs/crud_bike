@@ -9,9 +9,18 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateBikeDTO {
-    @Schema(description = "Descrição da Bike")
+    @Schema(description = "Código do modelo da bike")
+    private String partNumber;
+
+    @Schema(description = "Descrição do modelo da bike")
     private String description;
 
-    @Schema(description = "O modelo é Mountain-Bike?", example = "Sim ou Não")
+    @Schema(description = "Tamanho do quadro da bike")
+    private Double sizeFrame;
+
+    @Schema(description = "Tamanho da roda da bike")
+    private Double sizeWheel;
+
+    @Schema(description = "O modelo é Mountain-Bike?")
     private Boolean isMTB;
 }

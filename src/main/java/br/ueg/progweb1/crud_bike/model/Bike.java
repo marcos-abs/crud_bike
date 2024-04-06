@@ -36,7 +36,13 @@ public  class Bike {
     @Column(name = "descricao",  nullable = false, length = 150)
     private String description;
 
-    @Column(name = "eh_mountainbike")
+    @Column(name = "tamanho_quadro")
+    private Double sizeFrame;
+
+    @Column(name = "tamanho_roda")
+    private Double sizeWheel;
+
+    @Column(name = "eh_mountainbike",  nullable = false)
     private Boolean isMTB;
 
     @Column(name = "date_creation", nullable = false)

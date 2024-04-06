@@ -13,6 +13,6 @@ public interface BikeRepository
 
     Optional<br.ueg.progweb1.crud_bike.model.Bike> findByPartNumber(String partNumber);
 
-    @Query("select s from Bike s where s.isMTB = TRUE")
+    @Query("select b from Bike b where b.isMTB = TRUE")
     Optional<List<br.ueg.progweb1.crud_bike.model.Bike>> findOnlyMountainBikes();
 }

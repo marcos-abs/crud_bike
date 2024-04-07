@@ -24,4 +24,11 @@ public class BikeMapper {
         b.setIsMTB(dto.getIsMTB());
         return b;
     }
+
+    public br.ueg.progweb1.crud_bike.model.Bike toModel(br.ueg.progweb1.crud_bike.model.dtos.PatchBikeDTO dto) {
+        br.ueg.progweb1.crud_bike.model.Bike b = new br.ueg.progweb1.crud_bike.model.Bike();
+        b.setPartNumber(dto.getPartNumber());
+        b.setDescription(dto.getDescription());
+        return b;
+    }
 }

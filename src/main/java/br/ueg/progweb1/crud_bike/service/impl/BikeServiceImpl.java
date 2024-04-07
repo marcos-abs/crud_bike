@@ -53,6 +53,14 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         return repository.save(dataDB);
     }
 
+    public br.ueg.progweb1.crud_bike.model.Bike patch(br.ueg.progweb1.crud_bike.model.Bike dataToUpdate){
+        var dataDB = validateBikeIdExists(dataToUpdate.getId());
+        validateBusinessLogic(dataToUpdate);
+        validateBusinessLogicForUpdate(dataToUpdate);
+        patchedDataDBFromUpdate(dataToUpdate, dataDB);
+        return repository.save(dataDB);
+    }
+
     public List<br.ueg.progweb1.crud_bike.model.Bike> listOnlyMountainBikes() {
         Optional<List<br.ueg.progweb1.crud_bike.model.Bike>> listagem = repository.findOnlyMountainBikes();
         if(listagem.isPresent()){
@@ -67,6 +75,19 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         dataDB.setSizeWheel(dataToUpdate.getSizeWheel());
         dataDB.setSizeFrame(dataToUpdate.getSizeFrame());
         dataDB.setIsMTB(dataToUpdate.getIsMTB());
+    }
+
+    private void patchedDataDBFromUpdate(br.ueg.progweb1.crud_bike.model.Bike dataToUpdate, br.ueg.progweb1.crud_bike.model.Bike dataDB) {
+        if(Objects.nonNull(dataToUpdate.getPartNumber())){
+            if(dataToUpdate.getPartNumber().length() > 0){
+                dataDB.setPartNumber(dataToUpdate.getPartNumber());
+            }
+        }
+        if(Objects.nonNull(dataToUpdate.getDescription())) {
+            if(dataToUpdate.getDescription().length() > 0) {
+                dataDB.setDescription(dataToUpdate.getDescription());
+            }
+        }
     }
 
     @Override
@@ -152,8 +173,8 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     }
 
     private void validateMandatoryFields(br.ueg.progweb1.crud_bike.model.Bike dado) {
-        if(Strings.isEmpty(dado.getDescription())){
-            throw new MandatoryException("Campos obrigatórios não preenchidos");
+        if(Strings.isEmpty(dado.getDescription()) || Strings.isEmpty(dado.getPartNumber())){
+            throw new MandatoryException("Campo de descrição é de preenchimento obrigatório");
         }
     }
 }

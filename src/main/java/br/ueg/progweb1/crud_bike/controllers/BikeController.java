@@ -123,4 +123,28 @@ public class BikeController {
                 Optional.ofNullable(bikeList)
         );
     }
+
+    @PatchMapping(path= "/{id}")
+    @Operation(description = "End point para alterar a descrição do modelo de bike")
+    public ResponseEntity<Object> patch(
+            @RequestBody br.ueg.progweb1.crud_bike.model.dtos.PatchBikeDTO dto,
+            @PathVariable("id") Long id){
+
+        br.ueg.progweb1.crud_bike.model.Bike bikeSaved =  null;
+        try{
+            br.ueg.progweb1.crud_bike.model.Bike data = mapper.toModel(dto);
+            data.setId(id);
+            bikeSaved = service.patch(data);
+        }catch (MandatoryException e) {
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED)
+                    .body("Erro:" + e.getMessage());
+        }catch (BusinessLogicException e){
+            return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED)
+                    .body("Erro:"+e.getMessage());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Erro: desconhecido aconteceu:"+e.getMessage());
+        }
+        return ResponseEntity.ok(bikeSaved);
+    }
 }

@@ -45,9 +45,6 @@ public  class Bike {
     @Column(name = "eh_mountainbike",  nullable = false)
     private Boolean isMTB;
 
-    @Column(name = "em_polegadas",  nullable = false)
-    private Boolean isInch = true;
-
-    @Column(name = "manufatured_date", nullable = false)
-    private LocalDate manufaturedDate;
+    @Column(name = "date_creation", nullable = false)
+    private LocalDate createdDate;
 }

@@ -9,6 +9,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,13 +31,14 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         validateMandatoryFields(dado);
         validateMountainBike(dado);
         validateSpeedBike(dado);
-        validateBusinessLogic(dado);
+        /*validateBusinessLogic(dado);*/
         validateBusinessLogicForInsert(dado);
         return repository.save(dado);
     }
 
     private void prepareToCreate(br.ueg.progweb1.crud_bike.model.Bike dado) {
         dado.setId(null);
+        dado.setCreatedDate(LocalDate.now());
     }
 
     @Override
@@ -167,9 +169,7 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     }
 
     private void validateBusinessLogic(br.ueg.progweb1.crud_bike.model.Bike dado) {
-        if(dado.getId() <= 0L ){
-            throw new BusinessLogicException(BusinessLogicError.INVALID_KEY);
-        }    }
+    }
 
     private void validateMandatoryFields(br.ueg.progweb1.crud_bike.model.Bike dado) {
         if(Strings.isEmpty(dado.getDescription()) || Strings.isEmpty(dado.getPartNumber())){

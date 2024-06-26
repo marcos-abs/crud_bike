@@ -9,7 +9,6 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -38,7 +37,6 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
 
     private void prepareToCreate(br.ueg.progweb1.crud_bike.model.Bike dado) {
         dado.setId(null);
-        dado.setCreatedDate(LocalDate.now());
     }
 
     @Override
@@ -79,12 +77,12 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
 
     private void patchedDataDBFromUpdate(br.ueg.progweb1.crud_bike.model.Bike dataToUpdate, br.ueg.progweb1.crud_bike.model.Bike dataDB) {
         if(Objects.nonNull(dataToUpdate.getPartNumber())){
-            if(dataToUpdate.getPartNumber().length() > 0){
+            if(!dataToUpdate.getPartNumber().isEmpty()){
                 dataDB.setPartNumber(dataToUpdate.getPartNumber());
             }
         }
         if(Objects.nonNull(dataToUpdate.getDescription())) {
-            if(dataToUpdate.getDescription().length() > 0) {
+            if(!dataToUpdate.getDescription().isEmpty()) {
                 dataDB.setDescription(dataToUpdate.getDescription());
             }
         }
@@ -141,7 +139,7 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     }
 
     private void validateMountainBike(br.ueg.progweb1.crud_bike.model.Bike dado) {
-        if(dado.getIsMTB() == true){
+        if(dado.getIsMTB()){
             if(dado.getSizeFrame() < 14.5d || dado.getSizeFrame() > 21.0d){
                 throw new BusinessLogicException(BusinessLogicError.INCORRECT_VALUES);
             }
@@ -152,7 +150,7 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     }
 
     private void validateSpeedBike(br.ueg.progweb1.crud_bike.model.Bike dado) {
-        if(dado.getIsMTB() == false){
+        if(!dado.getIsMTB()){
             if(dado.getSizeFrame() < 46.0d || dado.getSizeFrame() > 59.0d){
                 throw new BusinessLogicException(BusinessLogicError.INCORRECT_VALUES);
             }
@@ -169,8 +167,9 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     }
 
     private void validateBusinessLogic(br.ueg.progweb1.crud_bike.model.Bike dado) {
-
-    }
+        if(dado.getId() <= 0L ){
+            throw new BusinessLogicException(BusinessLogicError.INVALID_KEY);
+        }    }
 
     private void validateMandatoryFields(br.ueg.progweb1.crud_bike.model.Bike dado) {
         if(Strings.isEmpty(dado.getDescription()) || Strings.isEmpty(dado.getPartNumber())){

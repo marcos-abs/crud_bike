@@ -1,6 +1,6 @@
 package br.ueg.progweb1.crud_bike.model;
 
-import br.ueg.progweb1.aula01.model.GenericModel;
+import br.ueg.progweb1.crud_bike.model.GenericModel;
 import jakarta.persistence.*;
 import lombok.*;
 

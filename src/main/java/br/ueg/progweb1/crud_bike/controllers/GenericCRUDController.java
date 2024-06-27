@@ -1,8 +1,8 @@
 package br.ueg.progweb1.crud_bike.controllers;
 
 import br.ueg.progweb1.crud_bike.mapper.GenericMapper;
-import br.ueg.progweb1.aula01.model.GenericModel;
-import br.ueg.progweb1.aula01.service.CrudService;
+import br.ueg.progweb1.crud_bike.model.GenericModel;
+import br.ueg.progweb1.crud_bike.service.CrudService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +67,17 @@ public abstract class GenericCRUDController<
     ) {
         DTO dtoResult = mapper.toDTO(service.getById(id));
         return ResponseEntity.ok(dtoResult);
+    }
+
+    @GetMapping(path = "/{description}")
+    @Operation(description = "End point para obter dados por descrição")
+    public ResponseEntity<List<DTOList>> getByDescription(
+            @PathVariable("description") String description
+    ) {
+        List<DTOList> modelList = mapper.fromModelToDTOList(service.getByDescription(description));
+        return ResponseEntity.of(
+                Optional.ofNullable(modelList)
+        );
     }
 
     @DeleteMapping(path = "/{id}")

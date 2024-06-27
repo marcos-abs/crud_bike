@@ -1,6 +1,6 @@
-package br.ueg.progweb1.aula01.mapper;
+package br.ueg.progweb1.crud_bike.mapper;
 
-import br.ueg.progweb1.aula01.model.GenericModel;
+import br.ueg.progweb1.crud_bike.model.GenericModel;
 import org.mapstruct.MappingTarget;
 
 public interface GenericUpdateMapper<

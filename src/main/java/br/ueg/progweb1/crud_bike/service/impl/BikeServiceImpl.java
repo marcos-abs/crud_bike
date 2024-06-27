@@ -8,6 +8,8 @@ import br.ueg.progweb1.crud_bike.repository.BikeRepository;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.ueg.progweb1.crud_bike.model.Bike;
+import br.ueg.progweb1.crud_bike.service.BikeService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,17 +18,17 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeService {
+public class BikeServiceImpl implements BikeService {
 
     @Autowired
     private BikeRepository repository;
-    public List<br.ueg.progweb1.crud_bike.model.Bike> listAll(){
+    public List<Bike> listAll(){
 
         return repository.findAll();
     }
 
     @Override
-    public br.ueg.progweb1.crud_bike.model.Bike create(br.ueg.progweb1.crud_bike.model.Bike dado) {
+    public Bike create(Bike dado) {
         prepareToCreate(dado);
         validateMandatoryFields(dado);
         validateMountainBike(dado);
@@ -36,13 +38,13 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         return repository.save(dado);
     }
 
-    private void prepareToCreate(br.ueg.progweb1.crud_bike.model.Bike dado) {
+    private void prepareToCreate(Bike dado) {
         dado.setId(null);
         dado.setCreatedDate(LocalDate.now());
     }
 
     @Override
-    public br.ueg.progweb1.crud_bike.model.Bike update(br.ueg.progweb1.crud_bike.model.Bike dataToUpdate){
+    public Bike update(Bike dataToUpdate){
         var dataDB = validateBikeIdExists(dataToUpdate.getId());
         validateMandatoryFields(dataToUpdate);
         validateMountainBike(dataToUpdate);
@@ -53,7 +55,7 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         return repository.save(dataDB);
     }
 
-    public br.ueg.progweb1.crud_bike.model.Bike patch(br.ueg.progweb1.crud_bike.model.Bike dataToUpdate){
+    public Bike patch(Bike dataToUpdate){
         var dataDB = validateBikeIdExists(dataToUpdate.getId());
         validateBusinessLogic(dataToUpdate);
         validateBusinessLogicForUpdate(dataToUpdate);
@@ -61,15 +63,15 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         return repository.save(dataDB);
     }
 
-    public List<br.ueg.progweb1.crud_bike.model.Bike> listOnlyMountainBikes() {
-        Optional<List<br.ueg.progweb1.crud_bike.model.Bike>> listagem = repository.findOnlyMountainBikes();
+    public List<Bike> listOnlyMountainBikes() {
+        Optional<List<Bike>> listagem = repository.findOnlyMountainBikes();
         if(listagem.isPresent()){
             return listagem.get();
         }
         return new ArrayList<>();
     }
 
-    private void updatedDataDBFromUpdate(br.ueg.progweb1.crud_bike.model.Bike dataToUpdate, br.ueg.progweb1.crud_bike.model.Bike dataDB) {
+    private void updatedDataDBFromUpdate(Bike dataToUpdate, Bike dataDB) {
         dataDB.setPartNumber(dataToUpdate.getPartNumber());
         dataDB.setDescription(dataToUpdate.getDescription());
         dataDB.setSizeWheel(dataToUpdate.getSizeWheel());
@@ -77,7 +79,7 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         dataDB.setIsMTB(dataToUpdate.getIsMTB());
     }
 
-    private void patchedDataDBFromUpdate(br.ueg.progweb1.crud_bike.model.Bike dataToUpdate, br.ueg.progweb1.crud_bike.model.Bike dataDB) {
+    private void patchedDataDBFromUpdate(Bike dataToUpdate, Bike dataDB) {
         if(Objects.nonNull(dataToUpdate.getPartNumber())){
             if(!dataToUpdate.getPartNumber().isEmpty()){
                 dataDB.setPartNumber(dataToUpdate.getPartNumber());
@@ -91,20 +93,24 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
     }
 
     @Override
-    public br.ueg.progweb1.crud_bike.model.Bike getById(Long id){
+    public Bike getById(Long id){
         return this.validateBikeIdExists(id);
     }
 
+    public Optional<List<Bike>> getByDescription(String description) {
+        return repository.findByDescriptionContaining(description);
+    }
+
     @Override
-    public br.ueg.progweb1.crud_bike.model.Bike deleteById(Long id){
-        br.ueg.progweb1.crud_bike.model.Bike bikeToRemove = this.validateBikeIdExists(id);
+    public Bike deleteById(Long id){
+        Bike bikeToRemove = this.validateBikeIdExists(id);
         this.repository.delete(bikeToRemove);
         return bikeToRemove;
     }
 
-    private br.ueg.progweb1.crud_bike.model.Bike validateBikeIdExists(Long id) {
+    private Bike validateBikeIdExists(Long id) {
         boolean valid = true;
-        br.ueg.progweb1.crud_bike.model.Bike dadoDB = null;
+        Bike dadoDB = null;
 
         if(Objects.nonNull(id)) {
             dadoDB = this.internalGetById(id);
@@ -122,25 +128,25 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         return dadoDB;
     }
 
-    private br.ueg.progweb1.crud_bike.model.Bike internalGetById(Long id){
-        Optional<br.ueg.progweb1.crud_bike.model.Bike> byId = repository.findById(id);
+    private Bike internalGetById(Long id){
+        Optional<Bike> byId = repository.findById(id);
         if(byId.isPresent()){
             return byId.get();
         }
         return null;
     }
 
-    private void validateBusinessLogicForInsert(br.ueg.progweb1.crud_bike.model.Bike dado) {
+    private void validateBusinessLogicForInsert(Bike dado) {
         if(Strings.isEmpty(dado.getPartNumber())){
             throw new BusinessLogicException(BusinessLogicError.MANDATORY_FIELD_NOT_FOUND);
         }
-        Optional<br.ueg.progweb1.crud_bike.model.Bike> registerNumber = repository.findByPartNumber(dado.getPartNumber());
+        Optional<Bike> registerNumber = repository.findByPartNumber(dado.getPartNumber());
         if(registerNumber.isPresent()){
             throw new BusinessLogicException(BusinessLogicError.ALREADY_EXISTS);
         }
     }
 
-    private void validateMountainBike(br.ueg.progweb1.crud_bike.model.Bike dado) {
+    private void validateMountainBike(Bike dado) {
         if(dado.getIsMTB()){
             if(dado.getSizeFrame() < 14.5d || dado.getSizeFrame() > 21.0d){
                 throw new BusinessLogicException(BusinessLogicError.INCORRECT_VALUES);
@@ -151,7 +157,7 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         }
     }
 
-    private void validateSpeedBike(br.ueg.progweb1.crud_bike.model.Bike dado) {
+    private void validateSpeedBike(Bike dado) {
         if(!dado.getIsMTB()){
             if(dado.getSizeFrame() < 46.0d || dado.getSizeFrame() > 59.0d){
                 throw new BusinessLogicException(BusinessLogicError.INCORRECT_VALUES);
@@ -162,16 +168,16 @@ public class BikeServiceImpl implements br.ueg.progweb1.crud_bike.service.BikeSe
         }
     }
 
-    private void validateBusinessLogicForUpdate(br.ueg.progweb1.crud_bike.model.Bike dado) {
+    private void validateBusinessLogicForUpdate(Bike dado) {
         if(dado.getId() <= 0L ){
             throw new BusinessLogicException(BusinessLogicError.INVALID_KEY);
         }
     }
 
-    private void validateBusinessLogic(br.ueg.progweb1.crud_bike.model.Bike dado) {
+    private void validateBusinessLogic(Bike dado) {
     }
 
-    private void validateMandatoryFields(br.ueg.progweb1.crud_bike.model.Bike dado) {
+    private void validateMandatoryFields(Bike dado) {
         if(Strings.isEmpty(dado.getDescription()) || Strings.isEmpty(dado.getPartNumber())){
             throw new MandatoryException("Campo de descrição é de preenchimento obrigatório");
         }

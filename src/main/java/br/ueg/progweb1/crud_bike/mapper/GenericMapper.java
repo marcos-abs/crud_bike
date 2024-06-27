@@ -1,7 +1,7 @@
 package br.ueg.progweb1.crud_bike.mapper;
 
-import br.ueg.progweb1.aula01.model.GenericModel;
-import br.ueg.progweb1.aula01.mapper.GenericUpdateMapper;
+import br.ueg.progweb1.crud_bike.model.GenericModel;
+import br.ueg.progweb1.crud_bike.mapper.GenericUpdateMapper;
 import org.mapstruct.IterableMapping;
 import org.mapstruct.Named;
 
@@ -19,8 +19,6 @@ public interface GenericMapper<
     MODEL fromModelCreateToModel(DTOCreate dtoCreate);
 
     MODEL fromModelUpdateToModel(DTOUpdate dtoUpdate);
-
-
 
     DTO toDTO(MODEL model);
 

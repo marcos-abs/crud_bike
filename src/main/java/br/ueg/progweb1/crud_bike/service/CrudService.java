@@ -1,6 +1,6 @@
-package br.ueg.progweb1.aula01.service;
+package br.ueg.progweb1.crud_bike.service;
 
-import br.ueg.progweb1.aula01.model.GenericModel;
+import br.ueg.progweb1.crud_bike.model.GenericModel;
 
 import java.util.List;
 
@@ -9,9 +9,12 @@ public interface CrudService<
         > {
     List<MODEL> listAll();
     MODEL create(MODEL dado);
+
     MODEL update(MODEL dado);
 
     MODEL getById(TYPE_PK id);
+
+    List<MODEL> getByDescription(String description);
 
     MODEL deleteById(TYPE_PK id);
 }

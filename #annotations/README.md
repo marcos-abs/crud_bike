@@ -1,11 +1,14 @@
 # README
 
 ## Última alteração
-Wed, 26 Jun 2024 23:05:52 GMT
+Thu, 27 Jun 2024 13:28:55 GMT
 
 ## Anotações
 * Restabelecida a versão original do projeto, funcionando a inclusão no swagger.
 * Continuando as modificações para adicionar o CORS, CRUD, Generics, etc.
+
+## Insights:
+* Normalizar o modelo da bike 
 
 ## Descrição do trabalho:
 Deverá ser implementado um CRUD completo com:

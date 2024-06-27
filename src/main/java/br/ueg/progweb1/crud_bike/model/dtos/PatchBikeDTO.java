@@ -1,6 +1,7 @@
 package br.ueg.progweb1.crud_bike.model.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.time.LocalDate;
 import lombok.*;
 
 @Data
@@ -14,4 +15,7 @@ public class PatchBikeDTO {
 
     @Schema(description = "Descrição do modelo da bike")
     private String description;
+
+    @Schema(description = "Data de Fabricação do modelo da bike")
+    private LocalDate manufacturedDate;
 }

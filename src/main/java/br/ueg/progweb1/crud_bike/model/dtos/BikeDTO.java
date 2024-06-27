@@ -10,7 +10,10 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateBikeDTO {
+public class BikeDTO {
+
+    @Schema(description = "Chave do registro da bike", example = "1")
+    private Long id;
 
     @Schema(description = "Código do modelo da bike", example = "1234567890AB")
     private String partNumber;
@@ -29,4 +32,7 @@ public class CreateBikeDTO {
 
     @Schema(description = "Data de fabricação do modelo da bike", example = "01/01/1980")
     private LocalDate manufacturedDate;
+
+    @Schema(description = "Data de criação do registro", example = "01/01/1980")
+    private LocalDate createdDate;
 }

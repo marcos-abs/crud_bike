@@ -1,10 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="BikeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+  <configuration default="false" name="BikeAppPlus" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
     <module name="crud_bike" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="br.ueg.progweb1.crud_bike.BikeApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
+      <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean install" />
     </method>
   </configuration>
 </component>

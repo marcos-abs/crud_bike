@@ -1,34 +1,45 @@
 package br.ueg.progweb1.crud_bike.mapper;
 
-import org.springframework.stereotype.Component;
+import br.ueg.progweb1.crud_bike.model.Bike;
+import br.ueg.progweb1.crud_bike.model.dtos.BikeDTO;
+import br.ueg.progweb1.crud_bike.model.dtos.CreateBikeDTO;
+import br.ueg.progweb1.crud_bike.model.dtos.UpdateBikeDTO;
+import org.mapstruct.*;
 
-@Component
-public class BikeMapper {
-    public br.ueg.progweb1.crud_bike.model.Bike toModel(br.ueg.progweb1.crud_bike.model.dtos.CreateBikeDTO dto) {
-        br.ueg.progweb1.crud_bike.model.Bike b = new br.ueg.progweb1.crud_bike.model.Bike();
-        b.setPartNumber(dto.getPartNumber());
-        b.setDescription(dto.getDescription());
-        b.setSizeFrame(dto.getSizeFrame());
-        b.setSizeWheel(dto.getSizeWheel());
-        b.setIsMTB(dto.getIsMTB());
-        return b;
+import java.util.List;
 
-    }
+@Mapper(
+        componentModel = "spring",
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, //checa se o valor é nulo antes de setar
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE //se o valor não for passado não faz nada.
+)
+public interface BikeMapper extends GenericMapper<
+        BikeDTO, // DTO Geral
+        CreateBikeDTO, // DTO Create
+        UpdateBikeDTO, // DTO Update
+        BikeDTO, // DTO List
+        Bike, // Model
+        Long // PK_TYPE
+        > {
 
-    public br.ueg.progweb1.crud_bike.model.Bike toModel(br.ueg.progweb1.crud_bike.model.dtos.UpdateBikeDTO dto) {
-        br.ueg.progweb1.crud_bike.model.Bike b = new br.ueg.progweb1.crud_bike.model.Bike();
-        b.setPartNumber(dto.getPartNumber());
-        b.setDescription(dto.getDescription());
-        b.setSizeFrame(dto.getSizeFrame());
-        b.setSizeWheel(dto.getSizeWheel());
-        b.setIsMTB(dto.getIsMTB());
-        return b;
-    }
+    @Override
+    Bike toModel(BikeDTO dto);
 
-    public br.ueg.progweb1.crud_bike.model.Bike toModel(br.ueg.progweb1.crud_bike.model.dtos.PatchBikeDTO dto) {
-        br.ueg.progweb1.crud_bike.model.Bike b = new br.ueg.progweb1.crud_bike.model.Bike();
-        b.setPartNumber(dto.getPartNumber());
-        b.setDescription(dto.getDescription());
-        return b;
-    }
+    @Override
+    Bike fromModelUpdateToModel(UpdateBikeDTO bikeDTO);
+
+    @Override
+    BikeDTO toDTO(Bike model);
+
+    @Override
+    @Named(value = "toDTOList") // para identificar o nome desse metodo pelo mapstruct
+    BikeDTO toDTOList(Bike model);
+
+    @Override
+    @IterableMapping(qualifiedByName = "toDTOList") // para orientar qual metodo utilizar no caso de vários target=source;
+    List<BikeDTO> fromModelToDTOList(List<Bike> bikes);
+
+    @Override
+    void updateModelFromModel(@MappingTarget Bike entity, Bike updateEntity);
 }
+

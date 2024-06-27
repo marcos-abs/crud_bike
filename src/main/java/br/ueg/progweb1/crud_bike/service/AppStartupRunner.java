@@ -40,6 +40,7 @@ public class AppStartupRunner implements ApplicationRunner {
                 .sizeWheel(27.5)
                 .isMTB(true)
                 .createdDate(LocalDate.now().minusDays(1))
+                .manufacturedDate(LocalDate.now().minusDays(180))
                 .build();
         this.bikeRepository.save(bike);
         bike = br.ueg.progweb1.crud_bike.model.Bike.builder()
@@ -49,6 +50,7 @@ public class AppStartupRunner implements ApplicationRunner {
                 .sizeWheel(29.0)
                 .isMTB(true)
                 .createdDate(LocalDate.now().minusDays(1))
+                .manufacturedDate(LocalDate.now().minusDays(180))
                 .build();
         this.bikeRepository.save(bike);
         LOG.info("Finalizando a execução do método initDados()");

@@ -1,5 +1,6 @@
 package br.ueg.progweb1.crud_bike.model;
 
+import br.ueg.progweb1.aula01.model.GenericModel;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +16,7 @@ import static jakarta.persistence.GenerationType.SEQUENCE;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "BIKE")
-public  class Bike {
+public  class Bike implements GenericModel<Long> {
 
     @Id
     @SequenceGenerator(
@@ -44,6 +45,9 @@ public  class Bike {
 
     @Column(name = "eh_mountainbike",  nullable = false)
     private Boolean isMTB;
+
+    @Column(name = "date_manufactured", nullable = false)
+    private LocalDate manufacturedDate;
 
     @Column(name = "date_creation", nullable = false)
     private LocalDate createdDate;

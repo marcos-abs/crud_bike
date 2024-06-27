@@ -3,6 +3,8 @@ package br.ueg.progweb1.crud_bike.model.dtos;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Data
 @ToString
 @Builder
@@ -23,4 +25,7 @@ public class UpdateBikeDTO {
 
     @Schema(description = "O modelo é Mountain-Bike?")
     private Boolean isMTB;
+
+    @Schema(description = "Data de fabricação do modelo da bike", example = "01/01/1980")
+    private LocalDate manufacturedDate;
 }

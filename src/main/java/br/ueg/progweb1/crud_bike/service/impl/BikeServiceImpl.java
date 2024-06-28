@@ -97,8 +97,12 @@ public class BikeServiceImpl implements BikeService {
         return this.validateBikeIdExists(id);
     }
 
-    public Optional<List<Bike>> getByDescription(String description) {
-        return repository.findByDescriptionContaining(description);
+    public List<Bike> getByDescription(String description) {
+        List<Bike> temp = repository.findByDescriptionContaining(description);
+        if(temp.isEmpty()){
+            throw new DataException("Modelo não encontrado");
+        }
+        return temp;
     }
 
     @Override

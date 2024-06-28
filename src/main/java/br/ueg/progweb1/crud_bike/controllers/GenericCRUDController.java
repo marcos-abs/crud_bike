@@ -52,7 +52,7 @@ public abstract class GenericCRUDController<
     }
 
     @GetMapping
-    @Operation(description = "lista todos os estudantes")
+    @Operation(description = "lista todos os dados")
     public ResponseEntity<List<DTOList>> listAll() {
         List<DTOList> modelList = mapper.fromModelToDTOList(service.listAll());
         return ResponseEntity.of(
@@ -69,7 +69,7 @@ public abstract class GenericCRUDController<
         return ResponseEntity.ok(dtoResult);
     }
 
-    @GetMapping(path = "/{description}")
+    @GetMapping(path = "/search/{description}")
     @Operation(description = "End point para obter dados por descrição")
     public ResponseEntity<List<DTOList>> getByDescription(
             @PathVariable("description") String description

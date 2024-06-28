@@ -3,6 +3,7 @@ package br.ueg.progweb1.crud_bike.service;
 import br.ueg.progweb1.crud_bike.model.GenericModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CrudService<
         MODEL extends GenericModel<TYPE_PK>, TYPE_PK
